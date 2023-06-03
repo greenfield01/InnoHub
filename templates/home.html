@@ -1,0 +1,47 @@
+{% extends 'layouts.html' %} {% block content %}
+<!-- <main>
+  <div class="container">
+    <div class="row">
+      <div class="col-8"> -->
+{% if posts %} {% for post in posts.items %}
+<div class="card w-75 mb-3">
+  <div class="card-body">
+    <div class="d-flex justify-content-start align-items-center">
+      <h3 class="card-title">{{ post.title }}</h3>
+      <span class="text-muted text-md mx-1">By {{ post.username }}</span>
+      <span class="text-muted text-sm mx-1">{{ post.post_date }}</span>
+    </div>
+    <p class="card-text">{{post.description}}</p>
+    <a href="{{ url_for('show_post', post_id=post.id) }}" class="btn btn-info"
+      >Read more</a
+    >
+  </div>
+</div>
+{% endfor %} {% else %}
+<p class="display-2">No post available</p>
+{% endif %}
+
+<div class="pagination">
+  {% if posts.has_prev %}
+  <a href="" class="page-item" aria-label="Previous">
+    <span class="page-link"> &laquo; </span>
+  </a>
+  {% endif %} {% for number in posts.iter_pages() %} {% if posts.page != number
+  %}
+  <span class="page-item">
+    <a href="{{ url_for('index', page=number) }}" class="page-link"
+      >{{ number }}</a
+    >
+  </span>
+  {% else %}
+  <span class="page-item"><a href="" class="page-link">{{ number }}</a></span>
+  {% endif %} {%endfor %} {% if posts.has_next %}
+  <span class="page-item">
+    <a href="{{ url_for('index', page=posts.next_num) }}" class="page-link"
+      >&raquo;</a
+    >
+  </span>
+  {% endif %}
+</div>
+
+{% endblock content %}

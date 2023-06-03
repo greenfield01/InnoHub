@@ -1,0 +1,28 @@
+{% extends 'layouts.html' %} {% block content %}
+<form action="" method="POST">
+  <fieldset class="form-group">
+    <legend class="border-bottom mb-4">Login</legend>
+    <div class="form-group mb-3">
+      {{ form.email.label(class="form-control-label") }} {% if form.email.errors
+      %} {{ form.email(class="form-control form-control-lg") }} {% for error in
+      form.email.errors %}
+      <p class="text-danger text-sm">{{ error }}</p>
+      {% endfor %} {% else %} {{ form.email(class="form-control
+      form-control-lg") }} {% endif %}
+    </div>
+    <div class="form-group mb-3">
+      {{ form.password.label(class="form-control-label") }} {% if
+      form.password.errors %} {{ form.password(class="form-control
+      form-control-lg") }} {% for error in form.password.errors %}
+      <p class="text-danger text-sm">{{ error }}</p>
+      {% endfor %} {% else %} {{ form.password(class="form-control
+      form-control-lg") }} {% endif %}
+    </div>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+    <div class="form-group mb-3">
+      {{ form.login(class="btn btn-lg btn-outline-info") }}
+    </div>
+  </fieldset>
+</form>
+
+{% endblock content %}

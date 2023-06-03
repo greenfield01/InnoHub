@@ -1,0 +1,66 @@
+<nav class="container-fluid text-bg-info p-3 mb-5 text-white">
+  <div class="container d-flex justify-content-between">
+    <a class="navbar-brand fs-3" href="{{ url_for('index') }}">Flask Blog</a>
+    <div class="">
+      <ul class="d-flex flex-row justify-content-evenly fs-4 list-unstyled">
+        <li class="px-3">
+          <a
+            href="{{ url_for('index') }}"
+            class="text-decoration-none text-white"
+            >Home</a
+          >
+        </li>
+        <li class="px-3">
+          <a href="" class="text-decoration-none text-white">Blogs</a>
+        </li>
+        <li class="px-3">
+          <a href="" class="text-decoration-none text-white">Contact</a>
+        </li>
+      </ul>
+    </div>
+    <div class="">
+      <ul
+        class="d-flex flex-row justify-content-between fs-4 list-unstyled ps-2"
+      >
+        {% if current_user.is_authenticated %}
+        <li class="px-3">
+          <a
+            href="{{ url_for('create_post') }}"
+            class="text-decoration-none text-white"
+            >New Post</a
+          >
+        </li>
+        <li class="px-3">
+          <a
+            href="{{ url_for('dashboard') }}"
+            class="text-decoration-none text-white"
+            >Dashboard</a
+          >
+        </li>
+        <li class="px-3">
+          <a
+            href="{{ url_for('logout') }}"
+            class="text-decoration-none text-white"
+            >logout</a
+          >
+        </li>
+        {% else %}
+        <li class="px-3">
+          <a
+            href="{{ url_for('login') }}"
+            class="text-decoration-none text-white"
+            >Login</a
+          >
+        </li>
+        <li class="px-3">
+          <a
+            href="{{ url_for('register') }}"
+            class="text-decoration-none text-white"
+            >Sign Up</a
+          >
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
