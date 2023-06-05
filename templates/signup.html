@@ -1,0 +1,60 @@
+{% extends 'layouts.html' %}
+<!-- Hero Section begins -->
+{% block main %}
+
+<form action="" method="POST">
+  {{ form.csrf_token }}
+  <fieldset class="form-group">
+    <legend class="border-bottom mb-4">Join Today</legend>
+    <div class="form-group mb-3">
+      {{ form.username.label(class="form-control-label") }} {% if
+      form.username.errors %} {{ form.username(class="form-control
+      form-control-lg") }} {% for error in form.username.errors %}
+      <p class="text-danger fs-6">{{ error }}</p>
+      {% endfor %} {% else %} {{ form.username(class="form-control
+      form-control-lg") }} {% endif %}
+    </div>
+    <div class="form-group mb-3">
+      {{ form.email.label(class="form-control-label") }} {% if form.email.errors
+      %} {{ form.email(class="form-control form-control-lg") }} {% for error in
+      form.email.errors %}
+      <p class="text-danger fs-6">{{ error }}</p>
+      {% endfor %} {% else %} {{ form.email(class="form-control
+      form-control-lg") }} {% endif %}
+    </div>
+    <div class="form-group mb-3">
+      {{ form.phoneNumber.label(class="form-control-label") }} {% if
+      form.phoneNumber.errors %} {{ form.phoneNumber(class="form-control
+      form-control-lg") }} {% for error in form.phoneNumber.errors %}
+      <p class="text-danger fs-6">{{ error }}</p>
+      {% endfor %} {% else %} {{ form.phoneNumber(class="form-control
+      form-control-lg") }} {% endif %}
+    </div>
+    <div class="form-group mb-3">
+      {{ form.country.label(class="form-control-label") }} {% if
+      form.country.errors %} {{ form.country(class="form-control
+      form-control-lg") }} {% for error in form.country.errors %}
+      <p class="text-danger fs-6">{{ error }}</p>
+      {% endfor %} {% else %} {{ form.country(class="form-control
+      form-control-lg") }} {% endif %}
+    </div>
+    <div class="form-group mb-3">
+      {{ form.password.label(class="form-control-label") }} {% if
+      form.password.errors %} {{ form.password(class="form-control
+      form-control-lg") }} {% for error in form.password.errors %}
+      <p class="text-danger fs-6">{{ error }}</p>
+      {% endfor %} {% else %} {{ form.password(class="form-control
+      form-control-lg") }} {% endif %}
+    </div>
+    <div class="form-group mb-3">
+      {{ form.confirm_password.label(class="form-control-label") }} {{
+      form.confirm_password(class="form-control form-control-lg") }}
+    </div>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+    <div class="form-group mb-3">
+      {{ form.submit(class="btn btn-lg signup-btn") }}
+    </div>
+  </fieldset>
+</form>
+
+{% endblock main %}

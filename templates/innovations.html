@@ -1,0 +1,68 @@
+{% extends 'layouts.html' %}
+<!-- Hero Section begins -->
+{% block main %} {% if posts %} {% for post in posts %}
+<div class="d-flex justify-content-around align-items-start">
+  <div>
+    <img
+      src="{{ url_for('static', filename='images/uploads/' + post.user.picture) }}"
+      alt=""
+      width="90"
+      height="90"
+    />
+  </div>
+  <div class="card w-75 mb-4">
+    <div class="card-body">
+      <div class="d-flex flex-column" id="post-container">
+        <div class="d-flex justify-content-between">
+          <h3 class="card-title">{{ post.description }}</h3>
+          <span class="text-muted text-sm mx-1 mb-3"
+            >{{ post.created_on }}</span
+          >
+        </div>
+        <span class="text-muted text-md mx-1">
+          <img
+            src="{{ url_for('static', filename='images/uploads/' + post.image_url) }}"
+            alt=""
+            width="300"
+            height="300"
+          />
+        </span>
+        <p class="card-text">{{ post.description }}</p>
+      </div>
+      <p class="card-text"></p>
+    </div>
+  </div>
+</div>
+{% endfor %} {% endif %}
+
+<div class="d-flex justify-content-center align-items-center">
+  <div class="pagination">
+    {% if posts.has_prev %}
+    <a href="" class="page-item" aria-label="Previous">
+      <span class="page-link"> &laquo; </span>
+    </a>
+    {% endif %} {% for number in posts.iter_pages() %} {% if posts.page !=
+    number %}
+    <span class="page-item">
+      <a href="{{ url_for('innovations', page=number) }}" class="page-link"
+        >{{ number }}</a
+      >
+    </span>
+    {% else %}
+    <span class="page-item"><a href="" class="page-link">{{ number }}</a></span>
+    {% endif %} {%endfor %} {% if posts.has_next %}
+    <span class="page-item">
+      <a
+        href="{{ url_for('innovations', page=posts.next_num) }}"
+        class="page-link"
+        >&raquo;</a
+      >
+    </span>
+    {% endif %}
+  </div>
+</div>
+{% endblock main%}
+
+<!-- {% block aside %}
+
+{% endblock aside %} -->

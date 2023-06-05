@@ -1,0 +1,56 @@
+{% extends 'layouts.html' %}
+<!-- Hero Section begins -->
+{% block main %}
+<div class="card w-100 mb-3">
+  <div class="card-body">
+    <div class="d-flex justify-content-start align-items-center">
+      <img
+        src="{{ url_for('static', filename='images/uploads/' + current_user.picture) }}"
+        width="90"
+        height="90"
+        class="rounded float-start"
+        alt="..."
+      />
+      <div class="mx-2">
+        <h5>Welcome, {{ current_user.username.capitalize() }}</h5>
+      </div>
+    </div>
+    <br />
+    <form action="" method="POST" enctype="multipart/form-data">
+      <legend class="border-bottom mb-4">Account Info</legend>
+      <div class="form-group mb-3">
+        {{ form.username.label(class="form-control-label") }} {% if
+        form.username.errors %} {{ form.username(class="form-control
+        form-control-lg") }} {% for error in form.username.errors %}
+        <p class="text-danger text-sm">{{ error }}</p>
+        {% endfor %} {% else %} {{ form.username(class="form-control
+        form-control-lg", value=current_user.username) }} {% endif %}
+      </div>
+      <div class="form-group mb-3">
+        {{ form.email.label(class="form-control-label") }} {% if
+        form.email.errors %} {{ form.email(class="form-control form-control-lg")
+        }} {% for error in form.email.errors %}
+        <p class="text-danger text-sm">{{ error }}</p>
+        {% endfor %} {% else %} {{ form.email(class="form-control
+        form-control-lg", value=current_user.email) }} {% endif %}
+      </div>
+      <div class="form-group mb-3">
+        {{ form.picture.label}} {{ form.picture(class="form-control
+        form-file-lg") }} {% if form.picture.errors %} {% for error in
+        form.picture.errors %}
+        <p class="text-danger text-sm">{{ error }}</p>
+        {% endfor %} {% endif %}
+      </div>
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+      <div class="form-group mb-3">
+        {{ form.update(class="btn btn-lg btn-pri") }}
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock main%} {% block aside %}
+
+<!-- Modal form for adding new innovation -->
+
+{% endblock aside %}

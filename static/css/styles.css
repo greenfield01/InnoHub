@@ -1,0 +1,59 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    
+}
+
+.header{
+    background-color: #7043d9;
+    color: white;
+}
+
+.footer{
+    background-color: #7043d9;
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
+
+.explore,
+.login-btn,
+.signup-btn,
+.btn-pri  {
+    background-color: #7043d9;
+    color: white;
+    font-size: large;
+    font-weight: 500;
+}
+
+.explore:hover,
+.login-btn:hover,
+.signup-btn:hover {
+    color: white;
+    background-color: #7043c1;
+}
+
+.signup-link {
+    background-color: #fff;
+    color:#7043d9;
+    padding: 12px;
+    border-radius: 4px;
+}
+
+.signup-link:hover {
+    background-color: #fffff0;
+}
+
+.add {
+    color: #7043c1;
+}
+
+.fpwd {
+    text-decoration: none;
+    color: #7043c1;
+    font-size: medium;
+}

@@ -1,43 +1,56 @@
 from flask_wtf import Form
-from wtforms import StringField, EmailField, FileField, PasswordField, TextAreaField, SubmitField, validators, ValidationError
+from wtforms import StringField, PasswordField, EmailField, SelectField, FileField, SubmitField, validators, ValidationError
+from models import User, Category
 from flask_login import current_user
-from models import User
-# from wtforms.validators import InputRequired, Length, DataRequired, EqualTo
 
-
-class RegistratioinForm(Form):
-    username = StringField("Username", [validators.InputRequired(
-        message="Username is required"), validators.Length(min=2, max=25, message="Username must be above 2 & not more than 25")])
-    email = EmailField(
-        "Email", [validators.InputRequired(message="Email field cannot be empty")])
-    password = PasswordField("Password", validators=[validators.DataRequired(message="Password field cannot be empty"), validators.EqualTo(
-        'confirm_password', message="Passwords must match")])
-    confirm_password = PasswordField("Confirm Password")
-    submit = SubmitField("Sign up")
+class SigupForm(Form):
+    username = StringField('Username', [validators.InputRequired(message='Username is required')])
+    email = EmailField('Email', [validators.InputRequired(message='Email is required')])
+    phoneNumber = StringField('Phone Number', [validators.InputRequired(message='Phone number is required')])
+    country = StringField('Country', [validators.InputRequired(message="Country is required")])
+    password = PasswordField('Password', [validators.InputRequired(message='Password id required'),\
+                                          validators.EqualTo('confirm_password', message='Password and confirm password must match')])
+    confirm_password = PasswordField('Confirm password')
+    submit = SubmitField('Sign up')
 
     def validate_username(self, username):
-        """Function that validate existance of username"""
         user = User.query.filter_by(username=username.data).first()
         if user:
-            raise ValidationError(
-                "Username already exists, kindly use another username")
-
+            raise ValidationError('Username already taken')
+    
     def validate_email(self, email):
-        """Function that validates the existance of email"""
         email = User.query.filter_by(email=email.data).first()
         if email:
-            raise ValidationError("Email already in use, kindly login")
+            raise ValidationError('Email already in use, kindly login')
+
+class ChangePasswordForm(Form):
+    current_password = PasswordField('Current Password', [validators.InputRequired("Enter current password")])
+    new_password = PasswordField('New Password', [validators.InputRequired("Enter new password"), validators.EqualTo('cpassword', message='Password must match')])
+    cpassword = PasswordField('Confirm Password')
+    submit = SubmitField('Change Password')
 
 
 class LoginForm(Form):
-    email = EmailField("Email", [validators.DataRequired(
-        message="Email is required")])
-    password = PasswordField(
-        "Password", [validators.DataRequired(message="Password is required")])
-    login = SubmitField("Login")
+    email = EmailField('Email', [validators.InputRequired('Email field cannot be empty')])
+    password = PasswordField('Password', [validators.InputRequired('Password cannot be empty')])
+    submit = SubmitField('Login')
 
+class ResetRequestForm(Form):
+    email = EmailField('Email', [validators.InputRequired('Email field cannot be empty')])
+    submit = SubmitField('Reset Password')
 
-class UpdateForm(Form):
+    def validate_email(self, email):
+        user = User.query.filter_by(email=email.data).first()
+        if user is None:
+            raise ValidationError(f"No account for '{email}' in our record.")
+
+class ResetPasswordForm(Form):
+    password = PasswordField('Password', [validators.InputRequired(message='Password id required'),\
+                                          validators.EqualTo('confirm_password', message='Password and confirm password must match')])
+    confirm_password = PasswordField('Confirm password')
+    submit = SubmitField('Reset Password')
+
+class UpdateProfileForm(Form):
     username = StringField("Username", [validators.InputRequired(
         message="Username is required"), validators.Length(min=2, max=25, message="Username must be above 2 & not more than 25")])
     email = EmailField(
@@ -60,18 +73,14 @@ class UpdateForm(Form):
             if email:
                 raise ValidationError("Email already in use")
 
+class InnovationForm(Form):
+    title = StringField('Title', [validators.InputRequired('Innovation title is required')])
+    description = StringField('Description', [validators.InputRequired('Innovation description is required')])
+    image = FileField('Image', name="file")
+    category = SelectField("Category", coerce=int)
+    submit = SubmitField('Add')
 
-class PostForm(Form):
-    title = StringField("Title", [validators.DataRequired(
-        message="Title is required")])
-    description = TextAreaField(
-        "Description", [validators.DataRequired(message="Description is required")])
-    post = SubmitField("Post")
+class CategoryForm(Form):
+    name = StringField('Name', [validators.InputRequired('Category name cannot be empty')])
+    submit = SubmitField('Submit')
 
-
-class UpdatePostForm(Form):
-    title = StringField("Title", [validators.DataRequired(
-        message="Title is required")])
-    description = TextAreaField(
-        "Description", [validators.DataRequired(message="Description is required")])
-    update = SubmitField("Update")
