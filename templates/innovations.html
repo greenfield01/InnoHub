@@ -2,13 +2,15 @@
 <!-- Hero Section begins -->
 {% block main %} {% if posts %} {% for post in posts %}
 <div class="d-flex justify-content-around align-items-start">
-  <div>
+  <div class="d-flex flex-column justify-content-between align-items-center">
     <img
       src="{{ url_for('static', filename='images/uploads/' + post.user.picture) }}"
       alt=""
-      width="90"
-      height="90"
     />
+    <a href="{{ url_for('user', user_id=post.user.id) }}"
+      >{{ post.user.username }}</a
+    >
+    <p>{{ post.user.phoneNumber }}</p>
   </div>
   <div class="card w-75 mb-4">
     <div class="card-body">

@@ -5,13 +5,16 @@
 
 body {
     font-family: 'Roboto', sans-serif;
-    
 }
 
 .header{
     background-color: #7043d9;
     color: white;
 }
+
+/* .main-content {
+    background-color: #7043d9;
+} */
 
 .footer{
     background-color: #7043d9;
@@ -24,13 +27,25 @@ body {
 .login-btn,
 .signup-btn,
 .btn-pri  {
-    background-color: #7043d9;
     color: white;
     font-size: large;
     font-weight: 500;
 }
 
+.readMore {
+    color: white;
+}
+
+.explore,
+.readMore,
+.login-btn,
+.signup-btn,
+.btn-pri  {
+    background-color: #7043d9;
+}
+
 .explore:hover,
+.readMore:hover,
 .login-btn:hover,
 .signup-btn:hover {
     color: white;

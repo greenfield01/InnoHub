@@ -1,37 +1,134 @@
-{% extends 'layouts.html' %}
+{% include './partials/head.html' %} {% include './partials/nav.html'%}
 <!-- Hero Section begins -->
-{% block main %}
-<div class="text-center text-md-start">
-  <h1>
-    <div class="display-2 text-bold">Inno Hub</div>
-    <div class="display-6 text-muted">Sharing your ideas to the world.</div>
-  </h1>
-  <p class="lead text-muted my-4">
-    Explore the pool of innovations that are capable of making life easier and
-    the world at large.
-  </p>
-  <a href="{{ url_for('innovations') }}" class="btn explore p-3">
-    Explore more
-  </a>
-</div>
-{% endblock main%} {% block aside %}
-<div class="text-center">
-  <img
-    src="{{ url_for('static', filename='images/hero_img.jpg') }}"
-    alt=""
-    width="400"
-    height="400"
-  />
-</div>
-{% endblock aside %}
-<!-- <section class="container hero-section">
+<section id="intro" class="mb-5 pt-3 pb-4">
   <div class="container">
-    <div class="row justify-content-center align-items-center">
-      <div class="col"></div>
-      <div class="col">
-        
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="text-center text-md-start">
+        <h1>
+          <div class="display-2 fw-bold">Inno Hub</div>
+          <div class="display-6 text-muted">
+            Sharing your ideas to the world.
+          </div>
+        </h1>
+        <p class="lead text-muted my-4">
+          Explore the pool of innovations that are capable <br />
+          making life easier and the world at large.
+        </p>
+        <a href="{{ url_for('innovations') }}" class="btn explore p-3">
+          Explore more
+        </a>
+      </div>
+      <div class="text-center">
+        <img
+          src="{{ url_for('static', filename='images/hero_img.jpg') }}"
+          alt=""
+          width="400"
+          height="400"
+        />
       </div>
     </div>
   </div>
-</section> -->
-<!-- Hero sections ends -->
+</section>
+
+<section class="pt-5 mb-5" id="features">
+  <div class="container justify-content-center align-items-center">
+    <div class="text-center mt-5 mb-5">
+      <h2 class="lead fs-1 fw-bold">Features</h2>
+      <p class="text-muted">Choose a feature that suit your needs</p>
+    </div>
+    <div class="container pt-2">
+      <div class="d-flex justify-content-evenly align-items-center mb-4">
+        <div class="text-center">
+          <p class="fs-3 text-muted text-center fw-bolder">Ideas</p>
+          <p class="text-muted">Share your Innovations!</p>
+        </div>
+        <div>
+          <img
+            src="{{ url_for('static', filename='images/idea.jpg') }}"
+            alt=""
+            width="400"
+            height="400"
+          />
+        </div>
+      </div>
+      <div class="d-flex justify-content-evenly align-items-center">
+        <div>
+          <img
+            src="{{ url_for('static', filename='images/api.jpg') }}"
+            alt=""
+            width="400"
+            height="400"
+          />
+        </div>
+        <div class="text-center">
+          <p class="fs-3 text-muted lead fw-bolder">Repo</p>
+          <p class="text-muted">
+            Explore unlimited ideas from our pool through API's
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pt-6 mb-5" id="about-us">
+  <div class="container justify-content-center align-items-center">
+    <div class="text-center mt-5 pb-4">
+      <h2 class="lead fs-1 fw-bold">About InnoHub</h2>
+      <p class="text-muted fs-5">
+        Our mission is to provide an enabling environment to all users without
+        any barrier to showcase their innovation to the world, thereby improving
+        and making life easier with new innovations.
+      </p>
+    </div>
+    <div class="mt-5 pb-4">
+      <h2 class="lead fs-3 fw-semibold pb-3 text-center">Who We Are</h2>
+      <div class="d-flex justify-content-evenly align-items-center pt-3">
+        <div class="d-flex flex-column gap-3">
+          <img
+            src="{{ url_for('static', filename='images/history.png') }}"
+            alt="History"
+            width="70"
+            height="70"
+          />
+          <h4>History</h4>
+          <div class="">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eaque
+            similique vero corporis dolor elit? <br />
+            <a href="#" class="btn readMore mt-3"> Read more </a>
+          </div>
+        </div>
+        <div class="d-flex flex-column gap-3">
+          <img
+            src="{{ url_for('static', filename='images/founders.png') }}"
+            alt="History"
+            width="70"
+            height="70"
+          />
+          <h4>Founders</h4>
+          <div>
+            This project was founded by Umar Faruk A and Greenfield Adolphus as
+            part ALX-SE programme <br />
+            <a href="#" class="btn readMore mt-3"> Read more </a>
+          </div>
+        </div>
+        <div class="d-flex flex-column gap-3">
+          <img
+            src="{{ url_for('static', filename='images/contributors.png') }}"
+            alt="History"
+            width="70"
+            height="70"
+          />
+          <h4>Contributors</h4>
+          <div>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eaque
+            similique vero corporis dolor elit? <br />
+            <button href="#" class="btn readMore mt-3">Read more</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% include './partials/footer.html'%}
