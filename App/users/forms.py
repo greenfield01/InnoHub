@@ -1,4 +1,4 @@
-from flask_wtf import Form
+from flask_wtf import Form, FlaskForm
 from wtforms import (StringField, PasswordField, EmailField, FileField, SubmitField,
                      validators, ValidationError)
 from App.models.users import User

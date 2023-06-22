@@ -1,4 +1,3 @@
-
 import secrets
 from os import environ, path, getenv
 from flask_jwt_extended import JWTManager

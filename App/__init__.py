@@ -16,7 +16,6 @@ def create_app(config=config.Config):
     # Settinng of configuration variables
     app.config.from_object(config)
 
-    csrf.init_app(app)
     bcrypt.init_app(app)
     mail.init_app(app)
     jwt.init_app(app)
@@ -25,6 +24,7 @@ def create_app(config=config.Config):
     cors.init_app(app, resources={r"/api/*": {"origins": "*"}})
     migrate.init_app(app, db)
     ma.init_app(app)
+    csrf.init_app(app)
 
     # importing defined blueprints
     from App.errors.handlers import errors
