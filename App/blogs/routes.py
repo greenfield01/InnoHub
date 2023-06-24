@@ -14,12 +14,12 @@ def index():
     page = request.args.get('page', 1, type=int)
     posts = Post.query.join(User).order_by(
         Post.created_on.desc()).paginate(page=page, per_page=5)
-    return render_template('posts/posts.html', posts=posts, title='Blog')
+    return render_template('posts/index.html', posts=posts, title='Blog')
 
 
 @post.route('/post/add', methods=['GET', 'POST'])
 @login_required
-def create():
+def store():
 
     form = PostForm(request.form)
     form.category.choices = [(cat.id, cat.name)
@@ -39,27 +39,16 @@ def create():
         post.insert()
         flash("New post successfully added", "success")
         return redirect(url_for("post.get"))
-    return render_template('posts/add_new.html', title='Add Post')
+    return render_template('posts/store.html', title='Add Post')
 
 
-@post.route('/my_posts', methods=['GET', 'POST'])
+@post.route('/post/show/<int:post_id>', methods=['GET', 'POST'])
 @login_required
-def show():
-    posts = Post.query.join(User).filter_by(
-        User.id == current_user.id).order_by(Post.created_on.desc()).all()
-    return render_template("posts/user_post.html", title="My Post", posts=posts)
-
-
-@post.route('/edit_post/<int:post_id>', methods=['GET', 'POST'])
-@login_required
-def edit(post_id):
-
+def show(post_id):
+    form = UpdatePostForm(request.form)
     if request.method == 'GET':
-        form = UpdatePostForm(request.form)
-        userPost = Post.query.filter_by(id=post_id).first()
+        post = Post.query.filter_by(id=post_id).join(User).first()
     elif request.method == 'POST' and form.validate():
-        form = UpdatePostForm(request.form)
-        userPost = Post.query.filter_by(id=post_id).first()
         file = request.files['file']
         filename = secure_filename(file.filename)
         if filename != "":
@@ -69,16 +58,15 @@ def edit(post_id):
                 flash("File format not allowed", "danger")
                 return redirect(url_for('post.show'))
             img_name = random_hex + f_ext
-            userPost.title = form.title.data
-            userPost.content = form.content.data
-            userPost.min_to_read = form.min_to_read.data
-            userPost.category = form.category.data
-            userPost.post_image = img_name
-            userPost.update()
+            post.title = form.title.data
+            post.content = form.content.data
+            post.min_to_read = form.min_to_read.data
+            post.category = form.category.data
+            post.post_image = img_name
+            post.update()
             flash("Post successfully updated", "success")
             return redirect(url_for('post.show'))
-
-    return render_template('posts/edit_post.html', title='Edit Post', form=form, post=userPost)
+    return render_template("posts/user_post.html", title="My Post", posts=post, form=form)
 
 
 @post.route('/post/delete/<int:post_id>', methods=['GET', 'POST'])
@@ -92,3 +80,16 @@ def delete(post_id):
             return redirect(url_for('post.show'))
         else:
             abort(404)
+
+
+@post.route('/user_posts', methods=['GET', 'POST'])
+@login_required
+def user_posts():
+    form = PostForm(request.form)
+    if request.method == 'GET':
+        page = request.args.get('page', 1, type=int)
+        posts = Post.query.join(User).filter_by(
+            User.id == current_user.id).order_by(Post.created_on.desc()).paginate(page=page, per_page=2)
+    elif request.method == 'POST':
+        ...
+    return render_template('user_post.html', form=form, posts=posts, title='Blog Posts')
