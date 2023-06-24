@@ -9,6 +9,7 @@ class Category(db.Model, UserMixin):
     name = Column(String, nullable=False)
     created_on = Column(String, nullable=True, default=datetime.now)
     innovation = relationship("Innovation", backref="category", lazy=True)
+    post = relationship("Post", backref="post_category", lazy=True)
 
     def __init__(self, name):
         """This function defines the contructor of the category class

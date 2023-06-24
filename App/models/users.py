@@ -29,6 +29,7 @@ class User(db.Model, UserMixin):
     picture = Column(String(60), nullable=True, default="defaul.png")
     date_registered = Column(String, nullable=True, default=datetime.now)
     innovation = relationship("Innovation", backref="user", lazy=True)
+    post = relationship("Post", backref="user", lazy=True)
 
     def __init__(self, username, email, password, phoneNumber, country):
         """This defines the init method

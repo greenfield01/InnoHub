@@ -14,7 +14,7 @@ from flask_migrate import Migrate
 from flask_marshmallow import Marshmallow
 from flask_cors import CORS
 from flask_login import LoginManager, UserMixin
-from sqlalchemy import Column, ForeignKey, String, Text, Integer
+from sqlalchemy import Column, ForeignKey, String, Text, Integer, Boolean
 from sqlalchemy.orm import relationship
 from itsdangerous.url_safe import URLSafeTimedSerializer as Serializer
 import jwt

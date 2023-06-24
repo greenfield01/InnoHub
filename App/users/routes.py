@@ -4,8 +4,9 @@ from App.extensions import (Blueprint, redirect, render_template, url_for, curre
 from App.models.users import User
 from App.users.forms import LoginForm, SigupForm, UpdateProfileForm, ResetPasswordForm, ResetRequestForm, ChangePasswordForm
 from App.models.innovations import Innovation
-from App.innovatioins.forms import InnovationForm
+from App.innovations.forms import InnovationForm
 from App.models.categories import Category
+from App.models.posts import Post
 
 import utils
 
@@ -78,7 +79,6 @@ def dashboard():
                              for cat in Category.query.all()]
     user_posts = Innovation.query.join(User).filter(
         User.id == current_user.id).order_by(Innovation.created_on.desc()).all()
-    print(user_posts)
     if request.method == 'POST' and form.validate():
         file = request.files['file']
         filename = secure_filename(file.filename)
@@ -87,7 +87,7 @@ def dashboard():
             f_ext = path.splitext(filename)[1]
             if f_ext not in current_app.config['UPLOAD_EXTENSIONS']:
                 flash("File format not allowed", "danger")
-                return redirect(url_for('dashboard'))
+                return redirect(url_for('users.dashboard'))
             img_name = random_hex + f_ext
             file.save(path.join(getenv('UPLOAD_PATH'), img_name))
             innovation = Innovation(name=form.title.data, description=form.description.data,
@@ -95,7 +95,7 @@ def dashboard():
                                     category_id=form.category.data)
             innovation.inser()
             flash("New innovation successfully added", "success")
-            return redirect(url_for('dashboard'))
+            return redirect(url_for('users.dashboard'))
         else:
             flash("No file selected", "danger")
             return redirect(url_for('users.dashboard'))
@@ -164,7 +164,7 @@ def reset_password(token):
     parameter:
          token (string): sequences of random characters generated using JWT"""
     if current_user.is_authenticated:
-        return redirect(url_for('dashboard'))
+        return redirect(url_for('users.dashboard'))
 
     user = User.verify_reset_token(token)
     if user is None:
@@ -200,8 +200,9 @@ def change_password():
             return redirect(url_for('users.change_password'))
     return render_template('users/change_password.html', form=form, title='Change Password')
 
-
 # Logout route
+
+
 @users.route('/logout')
 @login_required
 def logout():

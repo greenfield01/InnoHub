@@ -30,9 +30,10 @@ def create_app(config=config.Config):
     from App.errors.handlers import errors
     from App.api.v1.routes import api
     from App.categories.routes import cat
-    from App.innovatioins.routes import innovation
+    from App.innovations.routes import innovation
     from App.main.routes import main
     from App.users.routes import users
+    from App.blogs.routes import post
 
     # Registering Blueprints
     app.register_blueprint(errors)
@@ -41,5 +42,6 @@ def create_app(config=config.Config):
     app.register_blueprint(innovation)
     app.register_blueprint(main)
     app.register_blueprint(users)
+    app.register_blueprint(post)
 
     return app
