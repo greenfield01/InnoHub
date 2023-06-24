@@ -93,5 +93,6 @@ def delete_post(post_id):
         if post:
             post.delete()
             flash("Post Successfully deleted", "success")
+            return redirect(url_for('post.user_posts'))
         else:
             abort(404)

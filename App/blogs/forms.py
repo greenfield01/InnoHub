@@ -33,7 +33,7 @@ class UpdatePostForm(Form):
         message="Enter the min to read the post"))
     post_image = FileField(
         'Image', [validators.InputRequired('A post must have an image')])
-    submit = SubmitField("Post")
+    update = SubmitField("Update Post")
 
     def validate_title(self, title):
         post = Post.query.filter_by(title=title.data).first()
