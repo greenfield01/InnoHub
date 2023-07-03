@@ -15,6 +15,8 @@ def create_app(config=config.Config):
 
     # Settinng of configuration variables
     app.config.from_object(config)
+    app.config['UPLOAD_EXTENSIONS'] = ['.jpg', '.jpeg', '.png', '.gif']
+    app.config['UPLOAD_PATH'] = 'static/images/uploads'
 
     bcrypt.init_app(app)
     mail.init_app(app)

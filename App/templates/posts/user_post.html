@@ -49,20 +49,27 @@
     </div>
   </div>
 </div>
-{% endfor %} {% endif %}
-
-<!-- Modal form for editing Post -->
+{% endfor %} {% endif %} {% endblock main%} {% block aside %}
+<a
+  href=""
+  type="btn"
+  class="p-3 rounded shadow bg-body-tertiary text-decoration-none fw-bold add"
+  data-bs-toggle="modal"
+  data-bs-target="#addPostModal"
+  >New Post</a
+>
+<!-- Modal form for adding new Post -->
 <div
   class="modal fade"
-  id="editModal"
+  id="addPostModal"
   tabindex="-1"
-  aria-labelledby="editModalLabel"
+  aria-labelledby="addPostModalLabel"
   aria-hidden="true"
 >
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="editModalLabel">Update Post</h1>
+        <h1 class="modal-title fs-5" id="addPostModalLabel">Add new Post</h1>
         <button
           type="button"
           class="btn-close"
@@ -71,57 +78,39 @@
         ></button>
       </div>
       <div class="modal-body">
-        <form action="" method="POST">
+        <form action="" method="POST" enctype="multipart/form-data">
           <fieldset class="form-group">
             <div class="form-group mb-3">
               {{ form.title.label(class="form-control-label") }} {% if
               form.title.errors %} {{ form.title(class="form-control
               form-control-lg") }} {% for error in form.title.errors %}
-              <p class="text-danger text-sm">{{ error }}</p>
+              <p class="text-danger fs-6">{{ error }}</p>
               {% endfor %} {% else %} {{ form.title(class="form-control
-              form-control-lg", value=post.title) }} {% endif %}
+              form-control-lg") }} {% endif %}
             </div>
             <div class="form-group mb-3">
               {{ form.content.label(class="form-control-label") }} {% if
               form.content.errors %} {{ form.content(class="form-control
               form-control-lg") }} {% for error in form.content.errors %}
-              <p class="text-danger text-sm">{{ error }}</p>
-              {% endfor %} {% else %}
-              <textarea
-                name="description"
-                class="form-control form-control-lg"
-                id=""
-                cols="30"
-                rows="5"
-              >
-              {{ post.content }}</textarea
-              >
-              {% endif %}
+              <p class="text-danger fs-6">{{ error }}</p>
+              {% endfor %} {% else %} {{ form.content(class="form-control
+              form-control-lg") }} {% endif %}
             </div>
             <div class="form-group mb-3">
               {{ form.min_to_read.label(class="form-control-label") }} {% if
               form.min_to_read.errors %} {{ form.min_to_read(class="form-control
               form-control-lg") }} {% for error in form.min_to_read.errors %}
-              <p class="text-danger text-sm">{{ error }}</p>
+              <p class="text-danger fs-6">{{ error }}</p>
               {% endfor %} {% else %} {{ form.min_to_read(class="form-control
-              form-control-lg", value=post.min_to_read) }} {% endif %}
-            </div>
-            <div class="form-group mb-3">
-              {{ form.is_published.label(class="form-control-label") }} {% if
-              form.is_published.errors %} {{
-              form.is_published(class="form-control form-control-lg") }} {% for
-              error in form.is_published.errors %}
-              <p class="text-danger text-sm">{{ error }}</p>
-              {% endfor %} {% else %} {{ form.is_published(class="form-control
-              form-control-lg", value=post.is_published) }} {% endif %}
+              form-control-lg") }} {% endif %}
             </div>
             <div class="form-group mb-3">
               {{ form.category.label(class="form-control-label") }} {% if
               form.category.errors %} {{ form.category(class="form-control
               form-control-lg") }} {% for error in form.category.errors %}
-              <p class="text-danger text-sm">{{ error }}</p>
+              <p class="text-danger fs-6">{{ error }}</p>
               {% endfor %} {% else %} {{ form.category(class="form-control
-              form-control-lg", value=post.category) }} {% endif %}
+              form-control-lg") }} {% endif%}
             </div>
             <div class="form-group mb-3">
               {{ form.post_image.label(class="form-control-label") }} {% if
@@ -131,51 +120,22 @@
               {% endfor %} {% else %} {{ form.post_image(class="form-control
               form-control-lg") }} {% endif%}
             </div>
+
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
-            {{ form.update(class="btn btn-lg btn-outline-info") }}
+            <div class="form-group mb-3">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Cancel
+              </button>
+              {{ form.submit(class="btn btn-lg signup-btn") }}
+            </div>
           </fieldset>
         </form>
       </div>
     </div>
   </div>
 </div>
-
-<!-- Delete Modal -->
-<div
-  class="modal fade"
-  id="deleteModal"
-  tabindex="-1"
-  aria-labelledby="deleteModalLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="deleteModalLabel">Delete Post</h1>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body">Are you sure you want to delete?</div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          No
-        </button>
-
-        <form
-          action="{{ url_for('post.delete', post_id=post.id) }}"
-          method="POST"
-        >
-          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
-          <input type="submit" class="btn btn-danger" value="Yes" />
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
-{% endblock main%}
-<!-- {% block aside %} {% endblock aside %} -->
+{% endblock aside %}

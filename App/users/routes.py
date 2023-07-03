@@ -93,7 +93,7 @@ def dashboard():
             innovation = Innovation(name=form.title.data, description=form.description.data,
                                     image_url=img_name, user_id=current_user.id,
                                     category_id=form.category.data)
-            innovation.inser()
+            innovation.insert()
             flash("New innovation successfully added", "success")
             return redirect(url_for('users.dashboard'))
         else:

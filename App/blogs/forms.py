@@ -10,11 +10,11 @@ class PostForm(Form):
         message="Title field cannot be empty")])
     content = TextAreaField(
         'Content', [validators.DataRequired(message="Content field is required")])
-    min_to_read = IntegerField('Minutes to read', validators.DataRequired(
-        message="Enter the min to read the post"))
+    min_to_read = IntegerField('Minutes to read', [validators.DataRequired(
+        message="Enter the min to read the post")])
     category = SelectField("Category", coerce=int)
     post_image = FileField(
-        'Image', [validators.InputRequired('A post must have an image')])
+        'Image', name='file')
     submit = SubmitField("Add Post")
 
     def validate_title(self, title):
@@ -25,15 +25,17 @@ class PostForm(Form):
 
 
 class UpdatePostForm(Form):
-    title = StringField('Title', [validators.DataRequired(
+    title = StringField('Title', [validators.InputRequired(
         message="Title field cannot be empty")])
     content = TextAreaField(
-        'Content', [validators.DataRequired(message="Content field is required")])
-    min_to_read = IntegerField('Minutes to read', validators.DataRequired(
-        message="Enter the min to read the post"))
+        'Content', [validators.InputRequired(message="Content field is required")])
+    min_to_read = IntegerField('Minutes to read', [validators.DataRequired(
+        message="Enter the min to read the post")])
+    category = SelectField("Category", coerce=int)
     post_image = FileField(
         'Image', [validators.InputRequired('A post must have an image')])
     update = SubmitField("Update Post")
+    submit = SubmitField("Update Post")
 
     def validate_title(self, title):
         post = Post.query.filter_by(title=title.data).first()

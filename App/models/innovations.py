@@ -28,7 +28,7 @@ class Innovation(db.Model, UserMixin):
         self.user_id = user_id
         self.category_id = category_id
 
-    def inser(self):
+    def insert(self):
         """This function insert new categInnovationory into the database"""
         db.session.add(self)
         db.session.commit()
